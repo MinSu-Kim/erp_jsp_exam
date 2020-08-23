@@ -1,0 +1,69 @@
+{
+	"folders": {},
+	"connections": {
+		"oracle_thin-1741a7d0121-11f22c10e70a6e47": {
+			"provider": "oracle",
+			"driver": "oracle_thin",
+			"name": "Oracle - orcl(system)",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "1521",
+				"database": "orcl",
+				"url": "jdbc:oracle:thin:@//localhost:1521/orcl",
+				"home": "D:\\app\\mskim\\product\\11.2.0\\dbhome_1",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-always-use-dba-views@": "false",
+					"@dbeaver-sid-service@": "SERVICE",
+					"@dbeaver-meta-use-simple-constraints@": "false",
+					"@dbeaver-use-rule-hint@": "false",
+					"@dbeaver-use-meta-optimizer@": "false",
+					"@dbeaver-connection-type@": "BASIC",
+					"@dbeaver-check-schema-content@": "false",
+					"@dbeaver-meta-use-sys-schema@": "false",
+					"@dbeaver-always-show-dba@": "false"
+				},
+				"handlers": {}
+			}
+		},
+		"oracle_thin-1741a823d7d-1624f1bbb8eb640e": {
+			"provider": "oracle",
+			"driver": "oracle_thin",
+			"name": "Oracle - orcl(ERP_JSP_EXAM)",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "1521",
+				"database": "orcl",
+				"url": "jdbc:oracle:thin:@//localhost:1521/orcl",
+				"home": "D:\\app\\mskim\\product\\11.2.0\\dbhome_1",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-always-use-dba-views@": "false",
+					"@dbeaver-sid-service@": "SERVICE",
+					"@dbeaver-meta-use-simple-constraints@": "false",
+					"@dbeaver-use-rule-hint@": "false",
+					"@dbeaver-use-meta-optimizer@": "false",
+					"@dbeaver-connection-type@": "BASIC",
+					"@dbeaver-check-schema-content@": "false",
+					"@dbeaver-meta-use-sys-schema@": "false",
+					"@dbeaver-always-show-dba@": "false"
+				},
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false
+		}
+	}
+}
