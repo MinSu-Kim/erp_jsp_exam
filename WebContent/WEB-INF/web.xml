@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>erp_jsp_exam</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+    <display-name>erp_jsp_exam</display-name>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+<!--
+    Servers/Tomcat v8.5 Server at localhost-config -> server.xml에 추가 
+    <GlobalNamingResources>
+        ...
+        ...
+	    <Resource name="jdbc/OracleHikari" auth="Container"
+	        factory="com.zaxxer.hikari.HikariJNDIFactory"
+	        type="javax.sql.DataSource"        
+	        minimumIdle="5" 
+	        maximumPoolSize="10"
+	        connectionTimeout="300000"        
+	        driverClassName="oracle.jdbc.driver.OracleDriver"
+	        jdbcUrl="jdbc:oracle:thin:@orcl_server:1521:orcl"        
+	        username="erp_jsp_exam"
+	        password="rootroot"
+	    />
+    </GlobalNamingResources>로 추가
+ -->   
+    <resource-ref>
+        <description>Mysql Hikari DataSource</description>
+        <res-ref-name>jdbc/jspdb</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+    
+	<context-param>
+		<param-name>hikariConfig</param-name>
+		<param-value>
+            jdbcUrl=jdbc:oracle:thin:@localhost:1521:orcl?useSSL=false
+            driverClassName=oracle.jdbc.driver.OracleDriver
+            dataSource.user=erp_jsp_exam
+            dataSource.password=rootroot
+            dataSource.cachePrepStmts=true
+            dataSource.prepStmtCacheSize=250
+            dataSource.prepStmtCacheSqlLimit=2048
+		</param-value>
+	</context-param>
+      
 </web-app>
