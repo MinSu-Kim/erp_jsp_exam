@@ -2,7 +2,7 @@ package erp_jsp_exam;
 
 import java.sql.Connection;
 
-import erp_jsp_exam.ds.JdbcUtil;
+import erp_jsp_exam.ds.HikariCPJAVA;
 
 public class TestMain {
 
@@ -10,7 +10,7 @@ public class TestMain {
         /*        Connection con = JdbcUtil.getConnection();
         System.out.println(con);*/
         
-        Connection con = JdbcUtil.getConnection();
+        Connection con = HikariCPJAVA.getConnection();
         System.out.println(con);
     }
 

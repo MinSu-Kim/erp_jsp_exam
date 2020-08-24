@@ -1,42 +1,28 @@
 package erp_jsp_exam.ds;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.io.*;
+import java.sql.*;
 import java.util.Properties;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-
 public class JdbcUtil {
-    private static HikariDataSource ds;
-
-    static {
-        String proptiesPath = "db.properties";
+    
+    public static Connection getConnection() {
+        Connection conn = null;
+        String proptiesPath = "oracle_db.properties";
         
         try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(proptiesPath)) {
             Properties props = new Properties();
             props.load(is);
             
-            HikariConfig cfg = new HikariConfig(props);
-            ds = new HikariDataSource(cfg);
-            ds.setMinimumIdle(10);
-            ds.setMaximumPoolSize(100);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } 
-    }
-    
-    private JdbcUtil() {}
+            String url = props.getProperty("url");
 
-    public static Connection getConnection() {
-        try {
-            return ds.getConnection();
+            conn = DriverManager.getConnection(url, props);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return conn;
     }
-    
 }

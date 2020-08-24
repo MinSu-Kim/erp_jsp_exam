@@ -19,10 +19,6 @@ import com.zaxxer.hikari.HikariDataSource;
 public class HikariCPListener implements ServletContextListener {
     private static HikariDataSource ds;
 
-    public HikariCPListener() {
-        // TODO Auto-generated constructor stub
-    }
-
     public void contextDestroyed(ServletContextEvent sce)  { 
         if (ds != null) ds.close();
     }

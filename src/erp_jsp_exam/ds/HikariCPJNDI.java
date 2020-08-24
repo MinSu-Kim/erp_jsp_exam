@@ -7,20 +7,20 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class JdbcJNDI {
+public class HikariCPJNDI {
     private static DataSource ds;
 
     static {
         try {
-            InitialContext ic= new InitialContext();                              //1. JNDI 서버 객체 생성
-            ds = (DataSource) ic.lookup("java:comp/env/jdbc/jspdb");   //2. lookup()
+            InitialContext ic= new InitialContext();                
+            ds = (DataSource) ic.lookup("java:comp/env/jdbc/jspdb");
             System.out.println("ds : " + ds);
         } catch (NamingException e) {
             e.printStackTrace();
         } 
     }
     
-    private JdbcJNDI() {}
+    private HikariCPJNDI() {}
 
     public static Connection getConnection() {
         try {
