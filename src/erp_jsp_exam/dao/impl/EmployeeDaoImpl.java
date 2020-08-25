@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -88,19 +89,64 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public int insertEmployee(Employee emp) {
-        // TODO Auto-generated method stub
+        String sql = "INSERT INTO EMPLOYEE(EMP_NO, EMP_NAME, TNO, MANAGER, SALARY, DNO, HIREDATE)" + 
+                     "VALUES(?, ?, ?, ?, ?, ?, ?)";
+        try(Connection con = HikariCPJAVA.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)){
+            pstmt.setInt(1, emp.getNo());
+            pstmt.setString(2, emp.getName());
+            pstmt.setInt(3, emp.getTitle().getNo());
+            pstmt.setInt(4, emp.getManager().getNo());
+            pstmt.setInt(5, emp.getSalary());
+            pstmt.setInt(6, emp.getDept().getNo());
+            pstmt.setTimestamp(7, new Timestamp(emp.getHireDate().getTime())); //util.Date->sql.Date로 변환
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return 0;
     }
 
     @Override
     public int updateEmployee(Employee emp) {
-        // TODO Auto-generated method stub
+        StringBuilder sql = new StringBuilder("UPDATE EMPLOYEE SET ");
+        if (emp.getName()!=null) sql.append("EMP_NAME=?, ");
+        if (emp.getTitle()!=null) sql.append("TNO=?, ");
+        if (emp.getManager()!=null)sql.append("MANAGER=?, ");
+        if (emp.getSalary()!=0) sql.append("SALARY=?, ");
+        if (emp.getDept()!=null) sql.append("DNO=?, ");
+        if (emp.getHireDate()!=null) sql.append("HIREDATE=?, ");
+    
+        sql.replace(sql.lastIndexOf(","), sql.length(), " ");
+        sql.append("WHERE EMP_NO=?");
+    
+        try(Connection con = HikariCPJAVA.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql.toString())){
+            int argCnt = 1;
+            if (emp.getName()!=null) pstmt.setString(argCnt++, emp.getName());
+            if (emp.getTitle()!=null) pstmt.setInt(argCnt++, emp.getTitle().getNo());
+            if (emp.getManager()!=null)pstmt.setInt(argCnt++, emp.getManager().getNo());
+            if (emp.getSalary()!=0) pstmt.setInt(argCnt++, emp.getSalary());
+            if (emp.getDept()!=null)pstmt.setInt(argCnt++, emp.getDept().getNo());
+            if (emp.getHireDate()!=null) pstmt.setTimestamp(argCnt++, new Timestamp(emp.getHireDate().getTime()));
+            pstmt.setInt(argCnt++, emp.getNo());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) { 
+             e.printStackTrace(); 
+        }
         return 0;
     }
 
     @Override
     public int deleteEmployee(Employee emp) {
-        // TODO Auto-generated method stub
+        String sql = "DELETE FROM EMPLOYEE WHERE EMP_NO=?";
+        try(Connection con = HikariCPJAVA.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)){
+            pstmt.setInt(1, emp.getNo());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return 0;
     }
 
