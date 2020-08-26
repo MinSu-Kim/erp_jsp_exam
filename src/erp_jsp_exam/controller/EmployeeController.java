@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import erp_jsp_exam.dto.Employee;
 import erp_jsp_exam.service.EmployeeService;
 
-@WebServlet("/EmployeeServlet")
-public class EmployeeServlet extends HttpServlet {
+@WebServlet("/EmployeeController")
+public class EmployeeController extends HttpServlet {
     EmployeeService service;
     
     @Override
