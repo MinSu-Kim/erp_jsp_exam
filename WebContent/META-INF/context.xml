@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <!-- Hikari ConnectionPool -->
+    <Resource name="jdbc/localhikari" 
+		auth="Container"
+		factory="com.zaxxer.hikari.HikariJNDIFactory"
+		type="javax.sql.DataSource" 
+		minimumIdle="5" 
+		maximumPoolSize="10"
+		connectionTimeout="300000"
+		dataSourceClassName="oracle.jdbc.pool.OracleDataSource"
+		dataSource.implicitCachingEnabled="true" 
+		dataSource.user="user_erp"
+		dataSource.password="rootroot"
+		dataSource.url="jdbc:oracle:thin:@127.0.0.1:1521:orcl" />
+
+    <!-- DBCP ConnectionPool -->
+    <!-- 톰켓설치폴더\Tomcat 8.5\lib\tomcat-dbcp.jar -->
+    <Resource 
+        name="jdbc/localdbcp"
+        auth="Container" 
+        driverClassName="oracle.jdbc.OracleDriver" 
+        factory="oracle.jdbc.pool.OracleDataSourceFactory" 
+        logAbandoned="true" 
+        password="rootroot" 
+        removeAbandoned="true" 
+        removeAbandonedTimeout="5" 
+        type="oracle.jdbc.pool.OracleDataSource" 
+        url="jdbc:oracle:thin:@127.0.0.1:1521:orcl" 
+        user="erp_jsp_exam"/> 
+
+     
+    <!-- 단일 연결 방식 (test외에는 권장하지 않음) -->
+    <Resource 
+        name="jdbc/localjdbc" 
+        auth="Container" 
+        type="javax.sql.DataSource"
+        maxTotal="100" 
+        maxIdle="30" 
+        maxWaitMillis="10000"
+        username="erp_jsp_exam" 
+        password="rootroot" 
+        driverClassName="oracle.jdbc.OracleDriver"
+        url="jdbc:oracle:thin:@127.0.0.1:1521:orcl"/>
+        
+    <!-- url에서 localhost->를 ip주소로 변경해야 됨 -->
+</Context>
