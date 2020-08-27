@@ -40,11 +40,69 @@ public class TitleDaoImpl implements TitleDao {
         }
         return null;
     }
-
+    
+    @Override
+    public Title selectTitleByNo(Title title) {
+        String sql = "SELECT TITLE_NO, TITLE_NAME FROM TITLE WHERE TITLE_NO=?";
+        try (Connection con = HikariCPJAVA.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql);){
+            pstmt.setInt(1, title.getNo());
+            try(ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                     return getTitle(rs);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     private Title getTitle(ResultSet rs) throws SQLException {
         int no = rs.getInt("TITLE_NO");
         String name = rs.getString("TITLE_NAME");
         return new Title(no, name);
+    }
+
+    @Override
+    public int insertTitle(Title title) {
+        String sql = "INSERT INTO TITLE VALUES(?, ?)";
+        try(Connection con = HikariCPJAVA.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)){
+            pstmt.setInt(1, title.getNo());
+            pstmt.setString(2, title.getName());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int updateTitle(Title title) {
+        String sql = "UPDATE TITLE SET TITLE_NAME=? WHERE TITLE_NO = ?";
+        try(Connection con = HikariCPJAVA.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)){
+            pstmt.setString(1, title.getName());
+            pstmt.setInt(2, title.getNo());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int deleteTitle(Title title) {
+        String sql = "DELETE FROM TITLE WHERE TITLE_NO = ?";
+        try(Connection con = HikariCPJAVA.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)){
+            pstmt.setInt(1, title.getNo());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 }

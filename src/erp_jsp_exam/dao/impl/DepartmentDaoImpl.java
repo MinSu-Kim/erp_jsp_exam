@@ -48,4 +48,64 @@ public class DepartmentDaoImpl implements DepartmentDao {
         return new Department(no, name, floor);
     }
 
+    @Override
+    public Department selectDepartmentByNo(Department dept) {
+        String sql = "SELECT DEPT_NO, DEPT_NAME, FLOOR FROM DEPARTMENT WHERE DEPT_NO=?";
+        try (Connection con = HikariCPJAVA.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql);){
+            pstmt.setInt(1, dept.getNo());
+            try(ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                     return getDepartment(rs);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public int insertDepartment(Department dept) {
+        String sql = "INSERT INTO DEPARTMENT VALUES(?, ?, ?)";
+        try(Connection con = HikariCPJAVA.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)){
+            pstmt.setInt(1, dept.getNo());
+            pstmt.setString(2, dept.getName());
+            pstmt.setInt(3, dept.getFloor());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int updateDepartment(Department dept) {
+        String sql = "UPDATE DEPARTMENT SET DEPT_NAME=?, FLOOR=? WHERE DEPT_NO = ?";
+        try(Connection con = HikariCPJAVA.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)){
+            pstmt.setString(1, dept.getName());
+            pstmt.setInt(2, dept.getFloor());
+            pstmt.setInt(3, dept.getNo());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int deleteDepartment(Department dept) {
+        String sql = "DELETE FROM DEPARTMENT WHERE DEPT_NO = ?";
+        try(Connection con = HikariCPJAVA.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)){
+            pstmt.setInt(1, dept.getNo());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }
