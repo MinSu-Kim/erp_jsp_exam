@@ -12,21 +12,20 @@ import erp_jsp_exam.dto.Title;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TitleDaoTest {
-
-    @Test
-    public void testSelectTitleByNo() {
-        System.out.println("testSelectTitleByNo()");
-        Title findTitle = TitleDaoImpl.getInstance().selectTitleByNo(new Title(1));
-        Assert.assertNotNull(findTitle);
-        System.out.println(findTitle);
-    }
-
     @Test
     public void testSelectTitleByAll() {
         System.out.println("testSelectTitleByAll()");
         List<Title> list = TitleDaoImpl.getInstance().selectTitleByAll();
         Assert.assertNotNull(list);
         list.stream().forEach(System.out::println);
+    }
+    
+    @Test
+    public void testSelectTitleByNo() {
+        System.out.println("testSelectTitleByNo()");
+        Title findTitle = TitleDaoImpl.getInstance().selectTitleByNo(new Title(1));
+        Assert.assertNotNull(findTitle);
+        System.out.println(findTitle);
     }
 
     @Test
