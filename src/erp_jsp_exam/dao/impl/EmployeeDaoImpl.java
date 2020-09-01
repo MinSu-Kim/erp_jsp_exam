@@ -150,4 +150,21 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return 0;
     }
 
+    @Override
+    public int loginCheck(Employee emp) {
+        String sql = "SELECT 1 FROM EMPLOYEE WHERE EMP_NO = ? and pwd = ?";
+        try (Connection con = HikariCPJAVA.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
+            pstmt.setInt(1, emp.getNo());
+            pstmt.setString(2, emp.getPwd());
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return 1;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }

@@ -11,4 +11,6 @@ public interface EmployeeDao {
     int insertEmployee(Employee emp);
     int updateEmployee(Employee emp);
     int deleteEmployee(Employee emp);
+    
+    int loginCheck(Employee emp);
 }

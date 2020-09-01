@@ -13,4 +13,7 @@ public class EmployeeService {
         return empDao.selectEmployeeByAll();
     }
 
+    public int loginCheck(Employee emp) {
+        return empDao.loginCheck(emp);
+    }
 }

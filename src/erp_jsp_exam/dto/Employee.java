@@ -10,7 +10,8 @@ public class Employee {
     private int salary;
     private Department dept;
     private Date hireDate;
-
+    private String pwd;
+    
     public Employee() {
         // TODO Auto-generated constructor stub
     }
@@ -83,6 +84,15 @@ public class Employee {
 
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
+    }
+
+    
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     @Override
